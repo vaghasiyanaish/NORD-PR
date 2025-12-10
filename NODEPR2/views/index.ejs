@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>To‑Do App – Modern Redesign</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", sans-serif;
+      background: #f6f8fb;
+      color: #333;
+    }
+
+    .header {
+      width: 100%;
+      padding: 28px 0;
+      text-align: center;
+      font-size: 34px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff7a18, #ffb56b);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      letter-spacing: 1px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1050px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #ff7a18;
+    }
+
+    .task-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px 18px;
+      margin-bottom: 25px;
+    }
+
+    .task-form input,
+    .task-form select,
+    .task-form textarea {
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #d9d9e3;
+      background: #fafafa;
+      font-size: 15px;
+      transition: 0.25s;
+    }
+
+    textarea {
+      grid-column: span 2;
+      resize: none;
+      min-height: 80px;
+    }
+
+    .task-form input:focus,
+    .task-form select:focus,
+    .task-form textarea:focus {
+      border-color: #ff7a18;
+      background: #fff;
+      box-shadow: 0 0 6px rgba(255, 122, 24, 0.3);
+    }
+
+    .submit-btn {
+      grid-column: span 2;
+      padding: 16px;
+      background: #ff7a18;
+      color: #fff;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: #e96b12;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 25px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 22px rgba(0,0,0,0.1);
+    }
+
+    th {
+      background: #ff7a18;
+      color: #fff;
+      padding: 14px;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 14px;
+      text-align: center;
+      border-bottom: 1px solid #ececf2;
+      background: #fff;
+      font-size: 15px;
+    }
+
+    tr:hover td {
+      background: #fff7ef;
+    }
+
+    .edit-btn,
+    .delete-btn {
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #fff;
+      text-decoration: none;
+      margin: 0 4px;
+      font-weight: 500;
+    }
+
+    .edit-btn { background: #3498db; }
+    .edit-btn:hover { background: #217dbb; }
+
+    .delete-btn { background: #e74c3c; }
+    .delete-btn:hover { background: #c0392b; }
+
+  </style>
+</head>
+<body>
+
+<div class="header">TO‑DO LIST APP</div>
+
+<div class="container">
+
+  <h2>Add New To‑Do</h2>
+
+  <form action="/addtask" method="post" class="task-form">
+    <input type="text" name="id" placeholder="To‑Do ID" required />
+    <input type="text" name="title" placeholder="To‑Do Title" required />
+    <textarea name="description" placeholder="To‑Do Description" required></textarea>
+    <select name="priority">
+      <option>High</option>
+      <option>Medium</option>
+      <option>Low</option>
+    </select>
+
+    <select name="status">
+      <option>Pending</option>
+      <option>In Progress</option>
+      <option>Completed</option>
+    </select>
+
+    <input type="text" name="assignedTo" placeholder="Assigned To (optional)" />
+    <input type="datetime-local" name="deadline" required />
+
+    <button type="submit" class="submit-btn">Add To‑Do</button>
+  </form>
+
+  <h2>To‑Do List</h2>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>To‑Do</th>
+      <th>Assigned</th>
+      <th>Priority</th>
+      <th>Status</th>
+      <th>Deadline</th>
+      <th>Actions</th>
+    </tr>
+
+    <% tasks.forEach(task => { %>
+    <tr>
+      <td><%= task.id %></td>
+      <td><%= task.title %></td>
+      <td><%= task.assignedTo %></td>
+      <td><%= task.priority %></td>
+      <td><%= task.status %></td>
+      <td><%= new Date(task.deadline).toLocaleString() %></td>
+      <td>
+        <a href="/edittask/<%= task.id %>" class="edit-btn">Edit</a>
+        <a href="/deletetask/<%= task.id %>" class="delete-btn" onclick="return confirm('Delete this task?')">Delete</a>
+      </td>
+    </tr>
+    <% }) %>
+  </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit To-Do – Modern Redesign</title>
+  <style>
+    /* Global */
+    :root{
+      --primary1: #ff7a18;
+      --primary2: #ffb56b;
+      --accent: #3498db;
+      --danger: #e74c3c;
+      --surface: #ffffff;
+      --bg: #f6f8fb;
+      --muted-border: #d9d9e3;
+    }
+
+    html,body{height:100%;margin:0;padding:0;background:var(--bg);font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+
+    /* Header */
+    .header {
+      width:100%;
+      padding: 26px 0;
+      text-align:center;
+      font-size: 30px;
+      font-weight:700;
+      color:#fff;
+      background: linear-gradient(135deg, var(--primary1), var(--primary2));
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      letter-spacing: 1px;
+    }
+
+    /* Container / Card */
+    .page {
+      max-width: 920px;
+      margin: 38px auto;
+      padding: 28px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    /* Left: form area */
+    .left h2 {
+      margin: 0 0 12px 0;
+      color: var(--primary1);
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .form-grid input,
+    .form-grid select,
+    .form-grid textarea,
+    .form-grid button {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--muted-border);
+      background: #fafafa;
+      font-size: 14px;
+      transition: box-shadow .18s, border-color .18s, background .18s;
+    }
+
+    .form-grid textarea { min-height: 120px; resize: vertical; }
+
+    .form-grid input:focus,
+    .form-grid textarea:focus,
+    .form-grid select:focus {
+      outline: none;
+      border-color: var(--primary1);
+      background: #fff;
+      box-shadow: 0 0 8px rgba(255,122,24,0.16);
+    }
+
+    .btn-row {
+      display:flex;
+      gap:12px;
+      margin-top:6px;
+    }
+
+    .btn {
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: none;
+      font-weight:600;
+      cursor:pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary1);
+      color: #f39c12;
+      flex:1;
+    }
+    .btn-primary:hover { background: #e96b12; 
+    color:#fafafa;
+    }
+
+    .btn-secondary {
+      background: #f3f5f7;
+      color: #333;
+      border: 1px solid #e6e8eb;
+      flex:0;
+    }
+    .btn-secondary a { color: inherit; text-decoration: none; display:block; padding:8px 10px; }
+
+    /* Right: info / preview */
+    .right {
+      background: linear-gradient(180deg, rgba(255,122,24,0.06), rgba(255,181,107,0.03));
+      border-radius: 10px;
+      padding: 18px;
+      height: 100%;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      justify-content:flex-start;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: #555;
+      line-height:1.5;
+    }
+
+    .meta .label { font-weight:600; color:#333; display:block; margin-bottom:6px; }
+
+    .status-pill {
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:600;
+      color:#fff;
+    }
+    .pill-pending { background:#f39c12; }
+    .pill-progress { background:#3498db; }
+    .pill-complete { background:#2ecc71; }
+
+    /* Responsive */
+    @media (max-width: 880px) {
+      .card { grid-template-columns: 1fr; }
+      .right { order: 2; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="header">TO-DO LIST APP</div>
+
+  <div class="page">
+    <div class="card">
+
+      <!-- LEFT: Edit form -->
+      <div class="left">
+        <h2>Edit To-Do</h2>
+
+        <form action="/updatetask/<%= task.id %>" method="post" class="form-grid">
+          <input type="text" name="title" value="<%= task.title %>" placeholder="Title" required />
+
+          <textarea name="description" placeholder="Description" required><%= task.description %></textarea>
+
+          <select name="priority" aria-label="Priority">
+            <option <%= task.priority==="High"?"selected":"" %>>High</option>
+            <option <%= task.priority==="Medium"?"selected":"" %>>Medium</option>
+            <option <%= task.priority==="Low"?"selected":"" %>>Low</option>
+          </select>
+
+          <select name="status" aria-label="Status">
+            <option <%= task.status==="Pending"?"selected":"" %>>Pending</option>
+            <option <%= task.status==="In Progress"?"selected":"" %>>In Progress</option>
+            <option <%= task.status==="Completed"?"selected":"" %>>Completed</option>
+          </select>
+
+          <input type="text" name="assignedTo" value="<%= task.assignedTo %>" placeholder="Assigned To (optional)" />
+
+          <!-- ensure value for datetime-local is in the correct format on server side;
+               if task.deadline already contains ISO string, it should work -->
+          <input type="datetime-local" name="deadline" value="<%= task.deadline %>" required />
+
+          <div class="btn-row">
+            <button type="submit" class="btn btn-primary">Update To-Do</button>
+            <button type="button" class="btn btn-secondary">
+              <a href="/">Back to List</a>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- RIGHT: Task preview / meta -->
+      <div class="right">
+        <div class="meta">
+          <span class="label">Task ID</span>
+          <div><strong><%= task.id %></strong></div>
+        </div>
+
+        <div class="meta">
+          <span class="label">Assigned To</span>
+          <div><%= task.assignedTo && task.assignedTo.trim() ? task.assignedTo : '— Not assigned —' %></div>
+        </div>
+
+        <div class="meta">
+          <span class="label">Priority</span>
+          <div><%= task.priority %></div>
+        </div>
+
+        <div class="meta">
+          <span class="label">Status</span>
+          <div>
+            <% if(task.status === 'Pending') { %>
+              <span class="status-pill pill-pending">Pending</span>
+            <% } else if(task.status === 'In Progress') { %>
+              <span class="status-pill pill-progress">In Progress</span>
+            <% } else { %>
+              <span class="status-pill pill-complete">Completed</span>
+            <% } %>
+          </div>
+        </div>
+
+        <div class="meta">
+          <span class="label">Deadline</span>
+          <div><%= new Date(task.deadline).toLocaleString() %></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
