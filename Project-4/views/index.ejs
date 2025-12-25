@@ -2,207 +2,213 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bookstore Management</title>
+    <title>Add Book - Neo Theme</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
 
-        body {
-            background: #eef1f7;
-            padding: 25px;
-            min-height: 100vh;
-        }
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+
+        body { background: linear-gradient(135deg, #ffe8d6, #fcd2af); min-height: 100vh; color: #3a2e2a; }
 
         header {
-            background: #4e73df;
+            background: #6a040f;
             padding: 25px;
+            font-size: 2.5rem;
             text-align: center;
-            color: #fff;
-            font-size: 2.4rem;
             font-weight: 700;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            margin-bottom: 45px;
+            color: white;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .form-container {
             max-width: 900px;
-            margin: auto;
-            background: #fff;
+            margin: 50px auto;
             padding: 35px;
+            background: #fff;
             border-radius: 20px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
         }
 
-        .form-container h2 {
+        .form-title {
             text-align: center;
-            margin-bottom: 25px;
-            color: #4e73df;
-            font-size: 1.8rem;
+            font-size: 1.9rem;
+            margin-bottom: 20px;
+            color: #6a040f;
             font-weight: 700;
         }
 
-        label {
-            font-weight: 600;
-            margin-bottom: 6px;
-            display: block;
-            color: #333;
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
         }
 
-        input, textarea {
+        .form-group label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #5b4636;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group textarea {
             width: 100%;
             padding: 14px;
-            border-radius: 10px;
-            border: 2px solid #d1d3e2;
-            margin-bottom: 18px;
-            font-size: 1rem;
+            background: #fff7f0;
+            border: 1px solid #c5b5a1;
+            border-radius: 12px;
             transition: .3s;
         }
 
-        input:focus, textarea:focus {
-            border-color: #4e73df;
-            box-shadow: 0 0 6px rgba(78,115,223,0.4);
+        .form-group input:focus,
+        .form-group textarea:focus {
+            background: #ffffff;
+            border-color: #9d0208;
+            box-shadow: 0 0 8px rgba(157, 2, 8, 0.3);
             outline: none;
         }
 
-        textarea {
-            height: 110px;
-        }
+        textarea { height: 130px; resize: none; }
 
         .btn {
             width: 100%;
-            padding: 14px;
-            margin-top: 10px;
-            background: #1cc88a;
-            color: #fff;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border-radius: 10px;
-            cursor: pointer;
+            margin-top: 20px;
+            padding: 15px;
+            background: #9d0208;
+            color: white;
             border: none;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
             transition: .3s;
         }
 
-        .btn:hover {
-            background: #17a673;
-        }
+        .btn:hover { background: #780000; transform: translateY(-2px); }
 
+        /* Table */
         .list-table {
-            width: 96%;
-            margin: 60px auto;
-            background: #fff;
-            border-radius: 20px;
+            width: 95%;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
             border-collapse: collapse;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
 
         .list-table th {
-            background: #4e73df;
-            color: #fff;
-            padding: 15px;
-            font-size: 1rem;
-            letter-spacing: .5px;
+            padding: 16px;
+            background: #6a040f;
+            color: white;
+            font-size: 0.95rem;
         }
 
         .list-table td {
             padding: 16px;
-            border-bottom: 1px solid #e5e7eb;
-            font-size: .95rem;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #ecdcd1;
+            color: #4b3b33;
         }
 
-        .list-table tr:hover {
-            background: #f7f9fc;
-        }
+        .list-table tr:hover { background: #fff1e6; }
 
-        .edit, .delete {
-            padding: 10px 16px;
+        .action-btn {
+            padding: 8px 12px;
+            font-size: 0.85rem;
             border-radius: 8px;
             border: none;
+            color: white;
             cursor: pointer;
             font-weight: 600;
-            transition: .3s;
         }
 
-        .edit {
-            background: #4e73df;
-            color: #fff;
-        }
+        .edit { background: #6a040f; }
+        .edit:hover { background: #54030c; }
 
-        .edit:hover {
-            background: #3959b8;
-        }
-
-        .delete {
-            background: #e74a3b;
-            color: #fff;
-        }
-
-        .delete:hover {
-            background: #c23321;
-        }
+        .delete { background: #d00000; }
+        .delete:hover { background: #9d0208; }
 
         footer {
             margin-top: 60px;
+            background: #6a040f;
+            color: white;
             text-align: center;
             padding: 18px;
-            color: #666;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
         }
+
     </style>
 </head>
+
 <body>
+    <header><i class="fas fa-book"></i> Bookstore Management</header>
 
-<header><i class="fas fa-book-open"></i> Bookstore Management</header>
+    <div class="form-container">
+        <h2 class="form-title">Add New Book</h2>
 
-<div class="form-container">
-    <h2>Add New Book</h2>
+        <form action="/add-book" method="post">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" name="title" required />
+                </div>
 
-    <form action="/add-book" method="post">
+                <div class="form-group">
+                    <label>Author</label>
+                    <input type="text" name="author" required />
+                </div>
 
-        <label>Title</label>
-        <input type="text" name="title" required />
+                <div class="form-group">
+                    <label>Genre</label>
+                    <input type="text" name="genre" required />
+                </div>
 
-        <label>Author</label>
-        <input type="text" name="author" required />
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="number" name="price" required />
+                </div>
+            </div>
 
-        <label>Genre</label>
-        <input type="text" name="genre" required />
+            <div class="form-group" style="margin-top:20px;">
+                <label>Description</label>
+                <textarea name="description" required></textarea>
+            </div>
 
-        <label>Price</label>
-        <input type="number" name="price" required />
+            <div class="form-grid" style="margin-top:20px;">
+                <div class="form-group">
+                    <label>Publisher</label>
+                    <input type="text" name="publisher" required />
+                </div>
 
-        <label>Description</label>
-        <textarea name="description" required></textarea>
+                <div class="form-group">
+                    <label>Published Year</label>
+                    <input type="number" name="year" required />
+                </div>
+            </div>
 
-        <label>Publisher</label>
-        <input type="text" name="publisher" required />
+            <button class="btn">Add Book</button>
+        </form>
+    </div>
 
-        <label>Published Year</label>
-        <input type="number" name="year" required />
+    <table class="list-table">
+        <tr>
+            <th>#</th>
+            <th>Book</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Publisher</th>
+            <th>Year</th>
+            <th>Action</th>
+        </tr>
 
-        <button class="btn">Add Book <i class="fas fa-plus"></i></button>
-    </form>
-</div>
-
-<table class="list-table">
-    <tr>
-        <th>#</th>
-        <th>Book</th>
-        <th>Author</th>
-        <th>Genre</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>Publisher</th>
-        <th>Year</th>
-        <th>Action</th>
-    </tr>
-
-    <% books.forEach((book, index)=> { %>
+        <% books.forEach((book, index)=> { %>
         <tr>
             <td><%= index + 1 %></td>
             <td><%= book.title %></td>
@@ -213,14 +219,13 @@
             <td><%= book.publisher %></td>
             <td><%= book.year %></td>
             <td>
-                <a href="/editbook/<%= book.id %>"><button class="edit">Edit</button></a>
-                <a href="/deletebook/<%= book.id %>"><button class="delete">Delete</button></a>
+                <a href="/editbook/<%= book.id %>"><button class="action-btn edit">Edit</button></a>
+                <a href="/deletebook/<%= book.id %>"><button class="action-btn delete">Delete</button></a>
             </td>
         </tr>
-    <% }) %>
-</table>
+        <% }) %>
+    </table>
 
-<footer>© 2025 Bookstore Management System</footer>
-
+    <footer>© 2025 Bookstore Management System</footer>
 </body>
 </html>

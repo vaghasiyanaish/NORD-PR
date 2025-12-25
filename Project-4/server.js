@@ -3,8 +3,8 @@ const dbConnection = require("./config/dbconnection");
 const Book = require("./model/book.model");
 
 const app = express();
-const port = 8500;
-dbConnection();
+const port = 9005;
+
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
@@ -49,6 +49,13 @@ app.post("/add-book", async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server started at http://localhost:${port}`);
-});
+const startServer = async () => {
+    await dbConnection();
+
+    app.listen(port, () => {
+        console.log(`Server started at http://localhost:${port}`);
+    });
+};
+
+startServer();
+
