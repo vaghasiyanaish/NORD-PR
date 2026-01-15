@@ -1,0 +1,166 @@
+<%- include('blog/header') %>
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        color: #1f2937;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: 60px auto;
+        padding: 0 15px;
+    }
+
+    h2.text-center {
+        font-weight: 700;
+        color: #1a1a1b;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+    }
+
+    .card {
+        border-radius: 18px;
+        background: #ffffff;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+        padding: 35px;
+        transition: 0.35s ease;
+        border: none;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 28px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    form {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 18px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        color: #334155;
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+    }
+
+    .form-control,
+    .form-control-file,
+    select {
+        width: 100%;
+        padding: 8px 14px;
+        border-radius: 12px;
+        border: 1px solid #cbd5e1;
+        font-size: 14px;
+        transition: 0.25s ease;
+        background: #f8fafc;
+    }
+
+    .form-control:focus,
+    select:focus {
+        border-color: #10b981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+        outline: none;
+        background: #ffffff;
+    }
+
+    textarea.form-control {
+        resize: vertical;
+    }
+
+    input[name="tags"] {
+        font-style: italic;
+        color: #475569;
+    }
+
+    .btn {
+        border-radius: 30px;
+        padding: 12px 26px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #10b981, #059669);
+        border: none;
+        color: #ffffff;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #059669, #047857);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+    }
+
+    .border-top {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .card-body input[type="submit"] {
+        width: 100%;
+    }
+</style>
+
+
+<div class="container">
+    <h2 class="text-center">Add New Blog</h2>
+    <div class="card">
+        <form action="/blog/add-blog" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="title" placeholder="Enter blog title" required>
+            </div>
+
+            <div class="form-group">
+                <label>Content</label>
+                <textarea class="form-control" name="content" rows="5" placeholder="Write your blog content here..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Author</label>
+                <input type="text" class="form-control" name="author" placeholder="Enter author's name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <select class="form-control" name="category" required>
+                    <option value="Technology">Technology</option>
+                    <option value="Health">Health</option>
+                    <option value="Education">Education</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Upload Image</label>
+                <input type="file" class="form-control-file" name="blogImage">
+            </div>
+
+            <div class="form-group">
+                <label>Tags (Comma Separated)</label>
+                <input type="text" class="form-control" name="tags" placeholder="e.g., JavaScript, Web Development, Node.js">
+            </div>
+
+            <div class="border-top">
+                <div class="card-body">
+                    <input type="submit" value="Add Blog" class="btn btn-primary btn-block">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('blog/footer') %>

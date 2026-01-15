@@ -1,0 +1,134 @@
+<%- include('blog/header') %>
+
+<style>
+    body {
+        background: linear-gradient(180deg, #f4f7fb, #e9eef5);
+        font-family: 'Poppins', sans-serif;
+        color: #1f2937;
+    }
+
+    .main-content {
+        margin-left: 260px;
+        padding: 20px;
+    }
+
+    @media (max-width: 992px) {
+        .main-content {
+            margin-left: 0;
+        }
+    }
+
+    .blog-container {
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .blog-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    .blog-title {
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #0f172a;
+    }
+
+    .blog-meta {
+        font-size: 14px;
+        color: #6b7280;
+        margin-bottom: 15px;
+    }
+
+    .blog-category {
+        font-size: 14px;
+        font-weight: 600;
+        color: #2563eb;
+        margin-bottom: 18px;
+    }
+
+    /* IMAGE FIX */
+    .blog-image {
+        width: 100%;
+        max-height: 420px;
+        object-fit: contain;
+        background: #f1f5f9;
+        padding: 10px;
+        border-radius: 14px;
+        margin: 20px 0;
+    }
+
+    .blog-content {
+        font-size: 15px;
+        line-height: 1.7;
+        color: #374151;
+        margin-bottom: 20px;
+    }
+
+    .blog-tags {
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .blog-tags span {
+        background: #e0f2fe;
+        color: #0369a1;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        margin-right: 6px;
+        display: inline-block;
+    }
+
+    .back-btn {
+        border-radius: 30px;
+        padding: 10px 24px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="main-content">
+    <div class="blog-container">
+
+        <div class="blog-card">
+
+            <h2 class="blog-title"><%= blog.title %></h2>
+
+            <div class="blog-meta">
+                By <b><%= blog.author %></b> •
+                <%= new Date(blog.createdAt).toDateString() %>
+            </div>
+
+            <div class="blog-category">
+                Category: <%= blog.category %>
+            </div>
+
+            <% if (blog.blogImage) { %>
+                <img src="/uploads/<%= blog.blogImage %>" class="blog-image">
+            <% } %>
+
+            <div class="blog-content">
+                <%= blog.content %>
+            </div>
+
+            <% if (blog.tags.length > 0) { %>
+                <div class="blog-tags">
+                    <b>Tags:</b><br>
+                    <% blog.tags.forEach(tag => { %>
+                        <span>#<%= tag %></span>
+                    <% }) %>
+                </div>
+            <% } %>
+
+            <a href="/blog/view-blogs" class="btn btn-secondary back-btn">
+                Back to All Blogs
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+<%- include('blog/footer') %>
