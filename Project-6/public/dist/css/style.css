@@ -14830,3 +14830,21 @@ File: scss
 @media (max-width: 991.98px) {
   .do-block {
     display: block !important; } }
+
+
+    
+    .fillter-btn{
+      background-color: #0D47A1;
+      color: white;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 20px;
+     }
+        
+    .fillter-btn:hover{
+      background-color: #0D47A1;
+      color: white;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 20px;
+     }

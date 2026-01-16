@@ -7,8 +7,5 @@
 	},
 	"devDependencies": {
 		"jshint": "0.9.1"
-	},
-	"dependencies": {
-		"Flot": "file:"
 	}
 }
