@@ -1,8 +1,8 @@
 const mongoose =   require("mongoose")
 
-const DB_connection = async (req, res) => {
-    await mongoose.connect("mongodb+srv://yogeshrd1708:yogesh17RD@cluster0.8rdbura.mongodb.net/")
-    .then("connection successfully ")
+const DB_connection = (req, res) => {
+    mongoose.connect("mongodb+srv://anishvaghasiya001_db_user:Anish%40123@cluster0.o5zwa5r.mongodb.net/blogproject")
+    .then(()=> console.log("connection successfully "))
     .catch((err) =>  console.log(err))
 }
 
